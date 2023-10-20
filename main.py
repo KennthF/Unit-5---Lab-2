@@ -9,16 +9,21 @@ def count_consonant(info,file):
                 count_dict[char] = 1 #Add zero to it
             else:
                 count_dict[char] += 1 #if not empty plus 1
-    
-    write_data = file.write(count_dict) #Write on that file
-    return write_data
-    
+                
+    file.write(f"This is all the consonant in the sample.ini;\n\n{count_dict}") #Write on that file
+    file.close() #Close the count file
     
 
-with open("./sample.ini", "r") as file:
-        data = file.read()
-new_file = open(f"count.txt", "w") #Creates a files
+new_file = open(f"count.txt", "w") #Creates the count file
+with open("./sample.ini", "r") as sample_file: #Open the sample file
+        data = sample_file.read()
 
-output = count_consonant(data,new_file)
+count_consonant(data,new_file) #Writes in the count file
 
-print(output)
+with open("./count.txt", "r") as count_file: #Open and Read the count file
+        new_file = count_file.read()
+
+print(new_file)
+
+count_file.close()
+sample_file.close()
