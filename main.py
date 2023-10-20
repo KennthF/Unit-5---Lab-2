@@ -1,4 +1,5 @@
-def count_consonant(info,file):
+def count_consonant(info):
+    # Count the consonant of a file
     vowels = ["a","e","i","o","u"]
     count_dict = {}
     for char in info:
@@ -7,23 +8,24 @@ def count_consonant(info,file):
 
             if value is None:  #Check if it is empty (Its right side)
                 count_dict[char] = 1 #Add zero to it
+
             else:
                 count_dict[char] += 1 #if not empty plus 1
-                
-    file.write(f"This is all the consonant in the sample.ini;\n\n{count_dict}") #Write on that file
-    file.close() #Close the count file
+    return count_dict
+
+
+#Open the sample file, and create the count file
+with open("./sample.ini", "r") as sample_file:
+    data = sample_file.read()
+
+dict_content = count_consonant(data) #Put the files inside the functions
+
+#Write the counted consonant and/or create the count file
+with open("./counts.txt", "w") as count_file: 
+    count_file.write(f"This is all the consonant in the sample.ini;\n\n{dict_content}\n") 
     
+#Read the counted file    
+with open("./counts.txt", "r") as count_read:
+    file_count = count_read.read()
 
-new_file = open(f"count.txt", "w") #Creates the count file
-with open("./sample.ini", "r") as sample_file: #Open the sample file
-        data = sample_file.read()
-
-count_consonant(data,new_file) #Writes in the count file
-
-with open("./count.txt", "r") as count_file: #Open and Read the count file
-        new_file = count_file.read()
-
-print(new_file)
-
-count_file.close()
-sample_file.close()
+print(file_count)
